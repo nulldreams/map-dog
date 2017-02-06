@@ -16,10 +16,13 @@ Feitas as instalações utilize "node server.js".
 
 - A rota POST "/animal" adiciona um novo animal no banco
  - # Parametros
- - tipo
- - genero
- - idade (? pode ser removida)
- - descricao
- - lng (Longitude)
- - lat (Latitude)
+ - tipo (Ex: Cachorro, Cobra, ET)
+ - genero (Ex: Macho, Femea)
+ - idade (? pode ser removida) (Ex: Novo, Adulto, Velho)
+ - descricao (Ex: O cachorro está com a pata quebrada, precisando de ajuda)
+ - lng (Longitude) (Ex: -51.93946481)
+ - lat (Latitude) (Ex: -23.41721839)
  - animal (Ele é um file, então nele você faz o input de uma imagem do cachorro)
+ 
+# Funcionamento dessa versão
+Assim que você sobe o server no node e acessa "localhost:3000", você vai cair na página principal que é o mapa, nessa tela ele vai estar enviando um GET para a rota "/animals" para capturar os dados que estão no nosso banco, com essas informações no arquivo "public/js/gservice.js", nós criamos uma marcação desse animal de acordo com as informações que estão no campo "Localizacao" do json que é devolvido do banco, quando você clica na imagem do animal, ele abre uma caixa com as informações dele e depois tem um botão para "Mais informações", nessa parte ele iria abrir uma tela única do animal com mais informações sobre ele, porém não manjo de CSS kkkk

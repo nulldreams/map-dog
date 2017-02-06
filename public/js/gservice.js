@@ -46,15 +46,20 @@ angular.module('gservice', [])
 
             // If no filter is provided in the refresh() call...
             else {
-
-                // Perform an AJAX call to get all of the records in the db.
-                $http.get('/animals').success(function(response){
+                $http({
+                  method: 'GET',
+                  url: '/animals'
+                }).then(function successCallback(response) {
                     // Then convert the results into map points
-                    locations = convertToMapPoints(response);
+                    console.log(response.data)
+                    locations = convertToMapPoints(response.data);
 
                     // Then initialize the map -- noting that no filter was used.
                     initialize(latitude, longitude, false);
-                }).error(function(){});
+                  }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                  })                
             }
         };
 

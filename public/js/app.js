@@ -1,11 +1,16 @@
 // Declares the initial angular module "meanMapApp". Module grabs other controllers and services.
 var app = angular.module('meanMapApp', ['headerCtrl', 'geolocation', 'gservice'])
 app.controller('animalController', function($scope, $http, $window) {
-
-    $http.get('/animals')
-        .success((data) =>{
-            $scope.animals = data
-        })
+    $http({
+      method: 'GET',
+      url: '/animals'
+    }).then(function successCallback(response) {
+        console.log(response.data)
+            $scope.animals = response
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      })
 })
 
 app.controller('queryCtrl', function($scope, $log, $http, $rootScope, geolocation, gservice){

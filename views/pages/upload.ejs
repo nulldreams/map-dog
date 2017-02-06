@@ -1,0 +1,77 @@
+<%- contentFor('animal') %>
+<head>
+    <meta charset="utf-8">
+    <title>Scotch MEAN Map</title>
+    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVGi9XPz_CX3WHEsRjey1E4DuQ78d8t4A"></script>
+
+    <!-- Modernizr -->
+    <script src="../bower_components/modernizr/bin/modernizr"></script>
+
+    <!-- JS Source -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>    
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="js/app.js"></script>
+    <script src="js/gservice.js"></script>
+    <script src="js/addCtrl.js"></script>
+    <script src="js/queryCtrl.js"></script>
+    <script src="js/headerCtrl.js"></script>
+</head>
+<div ng-controller="uploadController">
+<form enctype="multipart/form-data" multiple="multiple" action="/animals" method="POST">
+  <div class="form-group">
+    <label for="type">Tipo</label>
+    <select class="form-control" name="type" id="type">
+      <option>Cachorro</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="gender">Sexo</label>
+    <select class="form-control" name="gender" id="gender">
+      <option>Macho</option>
+      <option>Fêmea</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="age">Idade (Aprox)</label>
+    <select class="form-control" name="age" id="age">
+      <option>Novo</option>
+      <option>Adulto</option>
+      <option>Velho</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="description">Mais informações</label>
+    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="dog">File input</label>
+    <input type="file" class="form-control-file" name="dog" id="dog" aria-describedby="fileHelp" accept="image/*">
+    <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Latitude</label>
+    <input type="text" class="form-control" name="lat" ng-model="lat" readonly>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Longitude</label>
+    <input type="text" class="form-control" name="lng" ng-model="lng" readonly>
+  </div>    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>

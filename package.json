@@ -1,0 +1,18 @@
+{
+  "name": "MeanMapsApp",
+  "version": "1.0.0",
+  "description": "Demo app showing the use of Google Maps in MEAN Apps",
+  "main": "server.js",
+  "author": "Ahmed Haque",
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "ejs": "^2.5.5",
+    "express": "~4.7.2",
+    "express-ejs-layouts": "^2.2.0",
+    "jsonwebtoken": "^5.0.2",
+    "method-override": "~2.1.2",
+    "mongoose": "~4.1.0",
+    "morgan": "~1.2.2",
+    "multer": "^1.2.1"
+  }
+}

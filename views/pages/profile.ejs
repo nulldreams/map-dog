@@ -1,0 +1,44 @@
+<%- contentFor('profile') %>
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <a href="/mapa" class="btn btn-default btn-sm">Mapa</a>
+    </div>
+
+    <div class="row">
+
+        <!-- FACEBOOK INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user.facebook.id %><br>
+                        <strong>token</strong>: <%= user.facebook.token %><br>
+                        <strong>email</strong>: <%= user.facebook.email %><br>
+                        <strong>name</strong>: <%= user.facebook.name %>
+                    </p>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>name</strong>: <%= user.local.name %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+            </div>
+        </div>
+
+    </div>    

@@ -5,14 +5,20 @@
   "main": "server.js",
   "author": "Ahmed Haque",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.5.2",
+    "connect-flash": "^0.1.1",
     "ejs": "^2.5.5",
     "express": "~4.7.2",
     "express-ejs-layouts": "^2.2.0",
+    "express-session": "^1.15.0",
     "jsonwebtoken": "^5.0.2",
     "method-override": "~2.1.2",
     "mongoose": "~4.1.0",
     "morgan": "~1.2.2",
-    "multer": "^1.2.1"
+    "multer": "^1.2.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0"
   }
 }

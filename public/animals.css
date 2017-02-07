@@ -1,0 +1,178 @@
+* {
+margin: 0;
+padding: 0;
+font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+ height: 100%;
+}
+a {
+color: #4680FF;
+text-decoration: none;
+cursor: pointer;
+}
+button {
+background: #4680FF;
+color: #fff;
+border: none;
+font-size: 18px;
+padding-left: 10px;
+padding-right: 10px;
+height: 50px;
+border-radius: 3px;
+transition: 0.2s;
+}
+button:hover {
+  filter: brightness(80%);
+transform: scale(1.2);
+}
+.total {
+  width: 100%;
+  height: 100%;
+  background: #ccc;
+}
+
+.total-flex {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content:center;
+  align-items: center;
+background: #fff;
+}
+
+.coluna-esquerda {
+  background: #fff;
+  flex-basis: 500px;
+flex-grow: 1;
+}
+
+.coluna-direita {
+  background:#ccc;
+  background: url(img/4.jpeg) 100%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  flex: 3;
+  /*filter: brightness(70%);*/
+  flex-basis: 500px;
+  min-height: 100%;
+height: 100%;
+transition: 1s
+}
+
+.coluna-direita:hover {
+  filter: brightness(90%);
+}
+
+.painel {
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  margin: 0 auto;
+  border-radius: 3px;
+padding-top: 25px;
+padding-bottom: 25px;
+}
+.painelc {
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  margin: 0 auto;
+  border-radius: 3px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  display: none
+}
+.painel-logo {
+
+}
+.painel-login {
+  padding-top: 100px;
+}
+.painel-input {
+display: flex;
+align-items: center;
+height: 50px;
+margin-bottom: 20px;
+border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.painel-input img {
+  height: 50px;
+margin-left: 10px;
+padding-right: 10px;
+border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.painel-input input {
+  flex: 1;
+  font-size: 20px;
+  height: 50px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  margin-left: 10px;
+color: #89949C
+}
+.painel-botao button {
+  float: right;
+background: #4680FF;
+color: #fff;
+border: none;
+font-size: 18px;
+width: 130px;
+height: 50px;
+border-radius: 3px;
+transition: 0.2s;
+}
+.painel-botao button:hover {
+  filter: brightness(80%);
+transform: scale(1.2);
+}
+.painel-cadastrar {
+margin-bottom: 20px;
+margin-top: 20px;
+padding-top: 50px;
+padding-bottom: 20px;
+text-align: center;
+color: #89949C
+}
+.painel-cadastrar a {
+font-size: 22px;
+cursor: pointer;
+font-weight: 900
+}
+
+.news {
+  width: 90%;
+  display: flex;
+  height: 100%;
+}
+
+.noticias {
+align-self:flex-end;
+min-height: 200px;
+width: 90%;
+margin: 0 auto;
+padding-bottom: 20px;
+color: #fff
+}
+
+.noticias h1 {
+text-shadow: 2px 2px 5px black;
+text-transform: uppercase;
+font-size: 44px;
+
+}
+.crie {
+padding-bottom: 10px;
+font-size: 28px;
+font-weight: 800;
+color: rgba(0, 0, 0, 0.5);
+}
+.hide {
+display: flex
+}

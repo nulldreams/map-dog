@@ -23,7 +23,7 @@
             </div>
             <form class="" action="/login" method="post">
               <div class="painel-cadastrar-face">
-                <button type="button" name="button"><img src="img/facebook.svg" width="25" alt=""> ENTRAR COM FACEBOOK</button>
+                <button type="button" onclick="window.location.href='/auth/facebook/callback'" name="button"><img src="img/facebook.svg" width="25" alt=""> ENTRAR COM FACEBOOK</button>
               </div>
 		    <% if (login_message.length > 0) { %>
 		        <div class="alert alert-danger"><%= login_message %></div>
@@ -66,7 +66,7 @@
 		    <% } %>            
             <form class="" action="/signup" method="post">
               <div class="painel-cadastrar-face">
-                <button type="button" name="button"><img src="img/facebook.svg" width="25" alt=""> CADASTRAR COM FACEBOOK</button>
+                <button type="button" onclick="window.location.href='/auth/facebook/callback'" name="button"><img src="img/facebook.svg" width="25" alt=""> CADASTRAR COM FACEBOOK</button>
               </div>
 
               <div class="painel-login">

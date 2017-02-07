@@ -39,7 +39,8 @@ module.exports = (app, passport) => {
         Animal.findById(req.params.id, (err, _animal) => {
             if(err) console.error(err)
 
-            res.render('pages/animal', { animal: _animal})
+           // res.render('pages/animal', { animal: _animal})
+       res.json(_animal)
         })
     }) 
 
@@ -73,6 +74,7 @@ module.exports = (app, passport) => {
     })
 
     app.get('/me', estaLogado, (req, res) => {
+        
         res.render('pages/profile', { user: req.user })
     })
 

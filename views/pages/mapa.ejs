@@ -1,0 +1,73 @@
+  <%- contentFor('map') %>
+<!doctype html>
+<html class="no-js" ng-app="MapApp">
+<head>
+    <meta charset="utf-8">
+    <title>Scotch 
+    Map</title>
+    <meta name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVGi9XPz_CX3WHEsRjey1E4DuQ78d8t4A"></script>
+
+    <!-- JS Source -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>    
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Angular Files -->
+    <script src="js/app.js"></script>
+    <script src="js/gservice.js"></script>
+    <script src="js/headerCtrl.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="queryCtrl">
+    <!-- Header Menu. Note use of headerCtrl -->
+    <div class="header" ng-controller="headerCtrl">
+        <h3 class="text-muted">Mapa</h3>
+         <h1><%= user.local.name %></h1>
+    </div>
+    <div class="row content" ng-controller="addCtrl">
+
+        <!-- Google Map -->
+        <div class="col-md-12">
+            <div id="map"></div>
+        </div>
+        <div ng-view></div>
+
+    </div>
+    <hr/>
+<!--div class="row" ng-controller="animalController">
+  <div ng-repeat="animal in animals" class="col-md-4">
+    <div class="card" style="width: 100%;">
+      <img class="card-img-top" style="height: 300px" src=".{{ animal.img.data }}" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">Tipo: {{ animal.type }}</h4>
+        <h4 class="card-title">Idade (aprox): {{ animal.age }}</h4>
+        <h4 class="card-title">Sexo: {{ animal.gender }}</h4>
+        <h4 class="card-title">Informações: {{ animal.description }}</h4>
+        <br>
+        <hr>
+        <div class="text-center"><a href="#" class="btn btn-primary"><h4><i class="fa fa-facebook" aria-hidden="true"></i> Compartilhar!</h4></a></div>
+        
+      </div>
+    </div>    
+  </div>
+</div-->    
+    <!-- Footer -->
+    <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> blablablabla - bla bla bla</p>
+    </div>
+
+</div>
+</body>

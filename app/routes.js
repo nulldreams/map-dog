@@ -16,14 +16,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage })
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
 
-	app.get('/', (req, res) => {
+    require('./autenticacao.js')(app, passport)
 
-		res.render('pages/home')
-	})
-
-    app.get('/animals', function(req, res){
+    app.get('/animals', estaLogado, function(req, res){
 
         // Uses Mongoose schema to run the search (empty conditions)
         var query = Animal.find({});
@@ -68,4 +65,25 @@ module.exports = (app) => {
 			})
 		})
 	})
+
+
+    app.get('/mapa', estaLogado, (req, res) =>{
+
+        res.render('pages/mapa', { user: req.user })
+    })
+
+    app.get('/me', estaLogado, (req, res) => {
+        res.render('pages/profile', { user: req.user })
+    })
+
+    // route middleware to make sure a user is logged in
+    function estaLogado(req, res, next){
+
+        // if user is authenticated in the session, carry on
+        if (req.isAuthenticated())
+            return next();
+
+        // if they aren't redirect them to the home page
+        res.redirect('/');
+    }    
 }

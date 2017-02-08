@@ -25,3 +25,7 @@ Assim que você sobe o server no node e acessa "localhost:3000", você vai cair 
 
 # ajustes
 - Colocar posicacao inicial fixa
+
+#ideias
+- Perfil das ongs
+- pagina de publicidade(Petshops, veterinarios..)

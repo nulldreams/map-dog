@@ -36,6 +36,13 @@ module.exports = (app) => {
   	})
   })
 
+  app.get('/pass-recovery', (req, res) => {
+    res.render('pages/mail-recovery')
+  })
+  app.get('/pass-change', (req, res) => {
+    res.render('pages/mail-change')
+  })
+
   app.post('/pass-change/:token', (req, res) => {
   	console.log('asdasd')
   	User.findOne({ 'local.token_recovery' : req.params.token }, (err, user) => {
@@ -57,10 +64,10 @@ module.exports = (app) => {
   	})
   })
 
-  app.post('/mail-pass-change/:email', (req, res) => {
+  app.post('/mail-pass-change/', (req, res) => {
   	var id = hat()
 
-    User.findOne({ 'local.email' : req.params.email }, (err, user) => {
+    User.findOne({ 'local.email' : req.body.email }, (err, user) => {
     	if (err) res.json({ status: 404, message: 'Nenhum usuário encontrado!' })
  		
  		user.local.token_recovery = id
@@ -71,15 +78,15 @@ module.exports = (app) => {
 			transporter.sendMail(changeOptions, (error, info) => {
 				if (error) return console.log(error)
 				console.log('Message %s sent: %s', info.messageId, info.response)
-			    res.json({ status: 200, message: 'O e-mail foi enviado para ' + req.params.email + ', veja sua caixa de entrada :)' })
+			    res.json({ status: 200, message: 'O e-mail foi enviado para ' + req.body.email + ', veja sua caixa de entrada :)' })
 			})	
     	})	
     })
   })	
 
-  app.post('/mail-pass-recovery/:email', (req, res) => {
+  app.post('/mail-pass-recovery', (req, res) => {
   	var newPass = randomstring.generate(7)
-    User.findOne({ 'local.email' : req.params.email }, (err, user) => {
+    User.findOne({ 'local.email' : req.body.email }, (err, user) => {
     	if (err) res.json({ status: 404, message: 'Nenhum usuário encontrado!' })
  		
  		user.local.password = user.generateHash(newPass)
@@ -90,7 +97,7 @@ module.exports = (app) => {
 			transporter.sendMail(recoveryOptions, (error, info) => {
 				if (error) return console.log(error)
 				console.log('Message %s sent: %s', info.messageId, info.response)
-			    res.json({ status: 200, message: 'O e-mail foi enviado para ' + req.params.email + ', veja sua caixa de entrada :)' })
+			    res.json({ status: 200, message: 'O e-mail foi enviado para ' + req.body.email + ', veja sua caixa de entrada :)' })
 			})	
     	})	
     })

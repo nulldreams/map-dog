@@ -72,7 +72,7 @@ module.exports = (app) => {
  		
  		user.local.token_recovery = id
     	changeOptions.to = user.local.email
-    	changeOptions.html = '<b><h1>Olá ' + user.local.name + ', tudo bem?</h1></b><p>Então você quer alterar a senha? Se desconficar que alguém está tentando invadir sua conta, nos informe! <br>Até mais.</p><a href="http://localhost:3000/pass-change/' + id + '"><h2>Link para alteração de senha.</h2></a>' // html body
+    	changeOptions.html = '<b><h1>Olá ' + user.local.name + ', tudo bem?</h1></b><p>Então você quer alterar a senha? Se desconficar que alguém está tentando invadir sua conta, nos informe! <br>Até mais.</p><a href="https://sos-animals.herokuapp.com/pass-change/' + id + '"><h2>Link para alteração de senha.</h2></a>' // html body
 
     	user.save((err, doc) => {
 			transporter.sendMail(changeOptions, (error, info) => {

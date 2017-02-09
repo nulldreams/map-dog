@@ -20,6 +20,8 @@ module.exports = (app, passport) => {
 
     require('./autenticacao.js')(app, passport)
 
+    require('./mail.js')(app)
+
     app.get('/animals', estaLogado, function(req, res){
 
         // Uses Mongoose schema to run the search (empty conditions)

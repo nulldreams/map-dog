@@ -1,0 +1,6 @@
+<%- contentFor('recovery-pass') %>
+    <form method="POST" action="/pass-change/<%= token %>">
+        Senha atual: <input type="text" name="senha_atual"><br>
+        Nova senha: <input type="text" name="senha_nova"><br>
+        <input type="submit" value="Submit">
+    </form>

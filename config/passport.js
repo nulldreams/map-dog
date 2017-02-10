@@ -43,6 +43,7 @@ module.exports = function(passport) {
         // asynchronous
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
+                
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
@@ -53,7 +54,6 @@ module.exports = function(passport) {
 
                 if (!user.validPassword(password))
                     return done(null, false, req.flash('loginMessage', 'Oops! Senha incorreta.'));
-
                 // all is well, return user
                 else
                     return done(null, user);

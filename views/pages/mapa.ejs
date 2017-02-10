@@ -30,8 +30,7 @@
     <!-- Header Menu. Note use of headerCtrl -->
     <div class="header" ng-controller="headerCtrl">
         <h3 class="text-muted">Mapa</h3>
-         <h1>Olá <%= user.local.name %>, vamos ajudar um dog zica hoje?</h1>
-         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+         <h1>Olá <%= user.local.name || user.facebook.name %>, vamos ajudar um dog zica hoje?</h1>
     </div>
     <div class="row content" ng-controller="addCtrl">
 
@@ -43,26 +42,10 @@
 
     </div>
     <hr/>
-<!--div class="row" ng-controller="animalController">
-  <div ng-repeat="animal in animals" class="col-md-4">
-    <div class="card" style="width: 100%;">
-      <img class="card-img-top" style="height: 300px" src=".{{ animal.img.data }}" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Tipo: {{ animal.type }}</h4>
-        <h4 class="card-title">Idade (aprox): {{ animal.age }}</h4>
-        <h4 class="card-title">Sexo: {{ animal.gender }}</h4>
-        <h4 class="card-title">Informações: {{ animal.description }}</h4>
-        <br>
-        <hr>
-        <div class="text-center"><a href="#" class="btn btn-primary"><h4><i class="fa fa-facebook" aria-hidden="true"></i> Compartilhar!</h4></a></div>
-        
-      </div>
-    </div>    
-  </div>
-</div-->    
     <!-- Footer -->
     <div class="footer">
-        <p class="text-center"><span class="glyphicon glyphicon-check"></span> blablablabla - bla bla bla</p>
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> Bichinhos
+         <a href="/logout" class="btn btn-default btn-sm">Logout</a></p>
     </div>
 
 </div>

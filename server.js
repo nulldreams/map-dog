@@ -1,6 +1,6 @@
 // Dependencies
 // -----------------------------------------------------
-var express         = require('express');
+var express         = require('express')
 var mongoose        = require('mongoose');
 var port            = process.env.PORT || 3000;
 var database        = require('./config/database');
@@ -12,7 +12,9 @@ var express 		= require('express')
 var flash    = require('connect-flash')
 var expressLayouts 	= require('express-ejs-layouts')
 var session      	= require('express-session')
-var app             = express();
+var app             = express()
+	, server 		= require('http').createServer(app).listen(4555)
+	, io 			= require('socket.io').listen(server)
 
 // Express Configuration
 // -----------------------------------------------------
@@ -44,7 +46,8 @@ app.use(flash())
 
 // Routes
 // ------------------------------------------------------
-require('./app/routes.js')(app, passport)
+var router = express.Router()
+require('./app/routes.js')(app, passport, router, io)
 
 // Listen
 // -------------------------------------------------------

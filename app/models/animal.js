@@ -5,6 +5,8 @@ var Schema      = mongoose.Schema;
 // Creates a User Schema. This will be the basis of how user data is stored in the db
 var AnimalSchema = new Schema({
     tipo: {type: String, required: true},               // Cachorro, gato, cavalo
+    cor: {type: String, required: true}, 
+    porte: {type: String, required: true}, 
     genero: {type: String, required: true},             // Macho ou Femea
     idade: {type: String, required: true},                // Deixar disponivel para adicoinar "Novo", "Adulto", "Velho"
     descricao: {type: String, required: true},        // Descrição

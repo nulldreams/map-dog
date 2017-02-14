@@ -18,8 +18,8 @@ angular.module('gservice', [])
         var currentSelectedMarker;
 
         // User Selected Location (initialize to center of America)
-        var selectedLat = 39.50;
-        var selectedLong = -98.35;
+        var selectedLat = -23.41721839;
+        var selectedLong = -51.93946481;
 
 
         // Functions

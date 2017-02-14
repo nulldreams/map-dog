@@ -2,7 +2,9 @@
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
+
 // load up the user model
+var notificacao     = require('../app/notificacao.js')
 var User       = require('../app/models/user');
 
 // load the auth variables
@@ -88,6 +90,12 @@ module.exports = function(passport) {
                     if (user) {
                         return done(null, false, req.flash('signupMessage', 'Este e-mail ja esta sendo utilizado.'));
                     } else {
+                        let notificacaoOpts = {
+                            from: 'Bichinhos',
+                            to: '',
+                            subject: 'Bem vindo.',
+                            text: ''
+                        }  
 
                         // create the user
                         var newUser            = new User();
@@ -100,6 +108,9 @@ module.exports = function(passport) {
                             if (err)
                                 return done(err);
 
+                            notificacaoOpts.to = email
+                            notificacaoOpts.html = '<b><h1>Olá ' + req.body.name + ', tudo bem?</h1></b><b><h2>Seja bem vindo, o que precisar pode entrar em contato conosco por este e-mail</h2></b>'
+                            notificacao(notificacaoOpts)
                             return done(null, newUser);
                         });
                     }

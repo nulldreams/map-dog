@@ -1,4 +1,25 @@
 
+2.6.3 / 2017-03-13
+==================
+
+  * Fix: Fix for electron reference to `process.env.DEBUG` (#431, @paulcbetts)
+  * Docs: Changelog fix (@thebigredgeeK)
+
+2.6.2 / 2017-03-10
+==================
+
+  * Fix: DEBUG_MAX_ARRAY_LENGTH (#420, @slavaGanzin)
+  * Docs: Add backers and sponsors from Open Collective (#422, @piamancini)
+  * Docs: Add Slackin invite badge (@tootallnate)
+
+2.6.1 / 2017-02-10
+==================
+
+  * Fix: Module's `export default` syntax fix for IE8 `Expected identifier` error
+  * Fix: Whitelist DEBUG_FD for values 1 and 2 only (#415, @pi0)
+  * Fix: IE8 "Expected identifier" error (#414, @vgoma)
+  * Fix: Namespaces would not disable once enabled (#409, @musikov)
+
 2.6.0 / 2016-12-28
 ==================
 
@@ -10,7 +31,7 @@
 ==================
 
   * Fix: reference error on window within webworkers (#393, @KlausTrainer)
-  * Docs: fixed README typo (#391, @lurch) 
+  * Docs: fixed README typo (#391, @lurch)
   * Docs: added notice about v3 api discussion (@thebigredgeek)
 
 2.5.1 / 2016-12-20
@@ -25,7 +46,7 @@
   * Fix: webworker compatibility (@thebigredgeek)
   * Fix: output formatting issue (#388, @kribblo)
   * Fix: babel-loader compatibility (#383, @escwald)
-  * Misc: removed built asset from repo and publications (@thebigredgeek) 
+  * Misc: removed built asset from repo and publications (@thebigredgeek)
   * Misc: moved source files to /src (#378, @yamikuronue)
   * Test: added karma integration and replaced babel with browserify for browser tests (#378, @yamikuronue)
   * Test: coveralls integration (#378, @yamikuronue)

@@ -1,11 +1,12 @@
 // Dependencies
-var mongoose = require('mongoose');
-var Animal = require('./models/animal.js')
+const mongoose = require('mongoose');
+const Animal = require('./models/animal.js')
 
-var User = require('./models/user.js')
-var Schema = mongoose.Schema
-var fs = require('fs')
-var multer = require('multer')
+const User = require('./models/user.js')
+const Schema = mongoose.Schema
+const fs = require('fs')
+const multer = require('multer')
+const cryptoRandomString = require('crypto-random-string');
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -31,6 +32,62 @@ module.exports = (app) => {
     return null
   }
 
+  app.get('/token-messenger', estaLogado, (req, res) => {
+    User.findOne({ 'local.email': req.user.local.email }, (err, usuario) => {
+      if (err) console.error(err)
+
+      if (usuario.notificacoes.token == '') {
+        let id = cryptoRandomString(10)
+        usuario.notificacoes.messenger = false
+        usuario.notificacoes.token = id
+
+        usuario.save((err, doc) => {
+          if (err) console.error(err)
+
+          res.json({ status: 200, message: 'Token gerado com sucesso.', token: id })
+        })        
+      }
+      else
+        res.json({ status: 400, message: 'Este token já foi gerado', token: usuario.notificacoes.token })
+    })
+  })
+
+  app.get('/todas-assinaturas', estaLogado, (req, res) => {
+      User.find({ 'local.subscribers': { $elemMatch : { email: req.user.local.email } } }, (err, usuarios) => {
+         
+         res.json({ status: 200, message: usuarios })
+      })
+  })
+
+  app.post('/atualizar-assinaturas', estaLogado, (req, res) => {
+      AtualizarAssinaturas(req, (result) => {
+        res.json({ status: 200, message: result })
+      })
+  })
+
+  var AtualizarAssinaturas = (req, callback) => {
+    User.find({ 'local.subscribers' : { $elemMatch: { email: req.user.local.email } } }, (err, usuarios) => {
+      
+      if (err) console.error(err)
+
+      if (usuarios.length > 0) {
+        for (var i = 0; i < usuarios.length; i++) {
+          let index = FindValue(usuarios[i].local.subscribers, 'email', req.user.local.email)
+          usuarios[i].local.subscribers[index].usuario_fb = req.user.local.usuario_fb
+
+          usuarios[i].save((err, doc) => {
+            console.log('ok')
+          })
+        }
+      }
+
+      callback(usuarios)
+    })
+
+    /*User.update({'subscribers.email': req.user.local.email }, { $set: { 'subscribers.$.usuario_fb': req.user.local.usuario_fb }}, (err, result) => {
+    })*/
+  }
+
   app.post('/subscribe/:id', estaLogado, (req, res) => {
     User.findById(req.params.id, (err, user) => {
       if (user !== null) {
@@ -38,6 +95,7 @@ module.exports = (app) => {
           status: 500,
           message: 'Ocorreu um erro, tente novamente.'
         })
+
         user.local.subscribers.push({
           email: req.user.local.email,
           nome: req.user.local.name

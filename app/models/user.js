@@ -9,8 +9,10 @@ var userSchema = mongoose.Schema({
         name: String,
         email: String,
         password: String,
+        usuario_fb: String,
         subscribers: [{
             email: String,
+            usuario_fb: String,
             nome: String
         }],
         token_recovery: String
@@ -24,6 +26,12 @@ var userSchema = mongoose.Schema({
             email: String,
             nome: String
         }]
+    },
+    notificacoes: {
+        email: { type: Boolean, default: false },
+        messenger: { type: Boolean, default: false },
+        token: { type: String, default: '' },
+        usuario_fb: { type: String, default: '' }
     }
 
 });

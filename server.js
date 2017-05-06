@@ -42,11 +42,12 @@ app.use(bodyParser.urlencoded({extended: true}));               // parse applica
 app.use(bodyParser.text());                                     // allows bodyParser to look at raw text
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));  // parse application/vnd.api+json as json
 app.use(methodOverride());
+var router = express.Router()
+app.use('/', router);
 app.use(flash())
 
 // Routes
 // ------------------------------------------------------
-var router = express.Router()
 require('./app/routes.js')(app, passport, router, io)
 
 // Listen

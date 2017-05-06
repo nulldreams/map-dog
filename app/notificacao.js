@@ -1,10 +1,12 @@
-const nodemailer = require('nodemailer')
-const User 		 = require('./models/user.js')
-const Animal     = require('./models/animal.js')
-const randomstring = require('randomstring')
-const hat          = require('hat')
+const nodemailer      = require('nodemailer')
+const login           = require("facebook-chat-api");
+const User 		        = require('./models/user.js')
+const Notificacao     = require('./models/notificacao.js')
+const Animal          = require('./models/animal.js')
+const randomstring    = require('randomstring')
+const hat             = require('hat')
 
-module.exports = function(opts) {
+exports.notificar_email = (opts) => {
   var mailOpts, smtpTransport
 
   smtpTransport = nodemailer.createTransport({
@@ -27,6 +29,17 @@ module.exports = function(opts) {
     console.log('O e-mail foi enviado para ' + mailOpts.to + ', veja sua caixa de entrada :)')
   })
 
+}
+
+exports.notificar_facebook = (destino, mensagem) => {
+
+  login({email: "igor.souza96@hotmail.com", password: "igor88021963"}, {pageID: '618248161706129'}, (err, api) => {
+      if(err) return console.error(err);
+
+      var yourID = destino //"100002787447461";
+      var msg = "Salve! Vamo fazer notificação por mensagem do face hahahaha. Essa mensagem foi enviada pelo node!!";
+      api.sendMessage(mensagem, destino);
+  });  
 }
 /*
 module.exports = (app) => {

@@ -1,3 +1,24 @@
+
+exports.CriarConta = () => {
+
+}
+
+exports.RealizarLogin = () => {
+
+}
+
+exports.PaginaInicial = () => {
+
+}
+
+exports.RealizarLoginFacebook = () => {
+
+}
+
+exports.Deslogar = () => {
+    
+}
+
 module.exports = (app, passport) => {
 
     app.post('/signup', passport.authenticate('local-signup', {
@@ -20,7 +41,8 @@ module.exports = (app, passport) => {
     // route for home page
     app.get('/', function(req, res) {
 
-        res.render('pages/home', { login_message: req.flash('loginMessage'), signup_message: req.flash('signupMessage') }); // load the login.ejs file
+        //res.render('pages/home', { login_message: req.flash('loginMessage'), signup_message: req.flash('signupMessage') }); // load the login.ejs file
+
     });
 
     app.get('/auth/facebook', passport.authenticate('facebook', {

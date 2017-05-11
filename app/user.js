@@ -21,148 +21,101 @@ var upload = multer({
   storage: storage
 })
 
-module.exports = (app) => {
 
-  var FindValue = (obj, key, value) => {
-    for (var i = 0; i < Object.keys(obj).length; i++) {
-      if (obj[i][key] == value) {
-        return i
+exports.GerarTokenMessenger = (req, res) => {
+  User.findOne({
+    'local.email': req.user.local.email
+  }, (err, usuario) => {
+    if (err) console.error(err)
+
+    if (usuario.notificacoes.token == '') {
+      let id = cryptoRandomString(10)
+      usuario.notificacoes.messenger = false
+      usuario.notificacoes.token = id
+
+      usuario.save((err, doc) => {
+        if (err) console.error(err)
+
+        res.json({
+          status: 200,
+          message: 'Token gerado com sucesso.',
+          token: id
+        })
+      })
+    } else
+      res.json({
+        status: 400,
+        message: 'Este token já foi gerado',
+        token: usuario.notificacoes.token
+      })
+  })
+}
+
+exports.ListarAssinaturas = (req, res) => {
+  User.find({
+    'local.subscribers': {
+      $elemMatch: {
+        email: req.user.local.email
       }
     }
-    return null
-  }
+  }, (err, usuarios) => {
 
-  app.get('/token-messenger', estaLogado, (req, res) => {
-    User.findOne({ 'local.email': req.user.local.email }, (err, usuario) => {
-      if (err) console.error(err)
+    res.json({
+      status: 200,
+      result: usuarios
+    })
+  })
+}
 
-      if (usuario.notificacoes.token == '') {
-        let id = cryptoRandomString(10)
-        usuario.notificacoes.messenger = false
-        usuario.notificacoes.token = id
+exports.AtualizarAssinaturas = (req, res) => {
+  AtualizarAssinaturas(req, (assinaturas) => {
+    res.json({
+      status: 200,
+      result: assinaturas
+    })
+  })
+}
 
-        usuario.save((err, doc) => {
-          if (err) console.error(err)
-
-          res.json({ status: 200, message: 'Token gerado com sucesso.', token: id })
-        })        
+var AtualizarAssinaturas = (req, callback) => {
+  User.find({
+    'local.subscribers': {
+      $elemMatch: {
+        email: req.user.local.email
       }
-      else
-        res.json({ status: 400, message: 'Este token já foi gerado', token: usuario.notificacoes.token })
-    })
-  })
+    }
+  }, (err, usuarios) => {
 
-  app.get('/todas-assinaturas', estaLogado, (req, res) => {
-      User.find({ 'local.subscribers': { $elemMatch : { email: req.user.local.email } } }, (err, usuarios) => {
-         
-         res.json({ status: 200, message: usuarios })
-      })
-  })
+    if (err) console.error(err)
 
-  app.post('/atualizar-assinaturas', estaLogado, (req, res) => {
-      AtualizarAssinaturas(req, (result) => {
-        res.json({ status: 200, message: result })
-      })
-  })
+    if (usuarios.length > 0) {
+      for (var i = 0; i < usuarios.length; i++) {
+        let index = FindValue(usuarios[i].local.subscribers, 'email', req.user.local.email)
+        usuarios[i].local.subscribers[index].usuario_fb = req.user.local.usuario_fb
 
-  var AtualizarAssinaturas = (req, callback) => {
-    User.find({ 'local.subscribers' : { $elemMatch: { email: req.user.local.email } } }, (err, usuarios) => {
-      
-      if (err) console.error(err)
-
-      if (usuarios.length > 0) {
-        for (var i = 0; i < usuarios.length; i++) {
-          let index = FindValue(usuarios[i].local.subscribers, 'email', req.user.local.email)
-          usuarios[i].local.subscribers[index].usuario_fb = req.user.local.usuario_fb
-
-          usuarios[i].save((err, doc) => {
-            console.log('ok')
-          })
-        }
+        usuarios[i].save((err, doc) => {
+          console.log('ok')
+        })
       }
+    }
 
-      callback(usuarios)
-    })
-
-    /*User.update({'subscribers.email': req.user.local.email }, { $set: { 'subscribers.$.usuario_fb': req.user.local.usuario_fb }}, (err, result) => {
-    })*/
-  }
-
-  app.post('/subscribe/:id', estaLogado, (req, res) => {
-    User.findById(req.params.id, (err, user) => {
-      if (user !== null) {
-        if (err) res.json({
-          status: 500,
-          message: 'Ocorreu um erro, tente novamente.'
-        })
-
-        user.local.subscribers.push({
-          email: req.user.local.email,
-          nome: req.user.local.name
-        })
-
-        user.save((err, doc) => {
-          if (err) res.json({
-            status: 500,
-            message: 'Ocorreu um erro, tente novamente.'
-          })
-
-          res.json({
-            status: 200,
-            message: 'success'
-          })
-        })
-      } else res.json({
-        status: 500,
-        message: 'O usuário ou ONG não existe'
-      })
-    })
+    callback(usuarios)
   })
+}
 
-  app.post('/unsubscribe/:id', estaLogado, (req, res) => {
-    var id
-    User.findOne({
-      '_id': req.params.id
-    }, (err, user) => {
-      if (user !== null) {
-        if (err) res.json({
-          status: 500,
-          message: 'Ocorreu um erro, tente novamente.'
-        })
-        id = user.local.subscribers[FindValue(user.local.subscribers, 'email', req.user.local.email)]._id
-        if (typeof id !== undefined) {
-          user.local.subscribers.remove(id)
-          user.save()
-          res.json({
-            status: 200,
-            message: 'success'
-          })
-        }
-      } else res.json({
-        status: 500,
-        message: 'O usuário ou ONG não existe'
-      })
-    })
-  })
-
-  app.get('/me/change', estaLogado, (req, res) => {
-    // TODO Definir nome da pagina que terá as alterações do perfil
-  })
-
-  app.put('/me/change', estaLogado, (req, res) => {
-    User.findOne({
-      'local.email': req.user.local.email
-    }, (err, user) => {
+exports.AssinarNotificacoes = (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (user !== null) {
       if (err) res.json({
         status: 500,
         message: 'Ocorreu um erro, tente novamente.'
       })
-      if (err) res.json(err)
 
-      user.name = req.body.name
-      user.email = req.body.email
+      user.local.subscribers.push({
+        email: req.user.local.email,
+        nome: req.user.local.name
+      })
 
-      user.save((err) => {
+      user.save((err, doc) => {
         if (err) res.json({
           status: 500,
           message: 'Ocorreu um erro, tente novamente.'
@@ -170,48 +123,99 @@ module.exports = (app) => {
 
         res.json({
           status: 200,
-          message: 'Usuário alterado com sucesso.'
+          message: 'success'
         })
       })
+    } else res.json({
+      status: 500,
+      message: 'O usuário ou ONG não existe'
     })
   })
+}
 
-  app.get('/me', estaLogado, (req, res) => {
-
-    res.render('pages/profile', {
-      user: req.user
-    })
-  })
-
-  app.get('/profiles', (req, res) => {
-
-    User.find({}, (err, usuarios) => {
+exports.DesassinarNotificacoes = (req, res) => {
+  var id
+  User.findOne({
+    '_id': req.params.id
+  }, (err, user) => {
+    if (user !== null) {
       if (err) res.json({
         status: 500,
         message: 'Ocorreu um erro, tente novamente.'
       })
-      res.json(usuarios)
+      id = user.local.subscribers[FindValue(user.local.subscribers, 'email', req.user.local.email)]._id
+      if (typeof id !== undefined) {
+        user.local.subscribers.remove(id)
+        user.save()
+        res.json({
+          status: 200,
+          message: 'success'
+        })
+      }
+    } else res.json({
+      status: 500,
+      message: 'O usuário ou ONG não existe'
     })
   })
+}
 
-  app.get('/profile/:id', (req, res) => {
+exports.AlterarPerfil = (req, res) => {
+  User.findOne({
+    'local.email': req.user.local.email
+  }, (err, user) => {
+    if (err) res.json({
+      status: 500,
+      message: 'Ocorreu um erro, tente novamente.'
+    })
+    if (err) res.json(err)
 
-    User.findById(req.params.id, (err, user) => {
+    user.name = req.body.name
+    user.email = req.body.email
+
+    user.save((err) => {
       if (err) res.json({
         status: 500,
         message: 'Ocorreu um erro, tente novamente.'
       })
-      res.json(user)
+
+      res.json({
+        status: 200,
+        message: 'Usuário alterado com sucesso.'
+      })
     })
   })
+}
 
-  // route middleware to make sure a user is logged in
-  function estaLogado(req, res, next) {
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-      return next();
+exports.ExibirPerfil = (req, res) => {
+  res.json({
+    status: 200,
+    result: req.user
+  })
+}
 
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-  }
+exports.ListarUsuarios = (req, res) => {
+  User.find({}, (err, usuarios) => {
+    if (err) res.json({
+      status: 500,
+      message: 'Ocorreu um erro, tente novamente.'
+    })
+    res.json(usuarios)
+  })
+}
+
+exports.ConsultarPerfil = (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) res.json({
+      status: 500,
+      message: 'Ocorreu um erro, tente novamente.'
+    })
+    res.json(user)
+  })
+}
+
+exports.estaLogado = (req, res, next) => {
+  if (req.isAuthenticated())
+    return next()
+
+  res.json({ status: 500, message: 'Efetue o login para continuar!' })
 }

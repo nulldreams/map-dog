@@ -1,64 +1,32 @@
 
-exports.CriarConta = () => {
-
+exports.CriarConta = (req, res) => {
+    res.json({ status: 200, result: req.user.local })
 }
 
-exports.RealizarLogin = () => {
-
+exports.RealizarLogin = (req, res) => {
+    res.json({ status: 200, result: req.user.local })
 }
 
-exports.PaginaInicial = () => {
-
+exports.PaginaInicial = (req, res) => {
+    res.redirect('/me')
 }
 
-exports.RealizarLoginFacebook = () => {
 
+exports.CallbackFacebook = () => {
+    res.redirect('/me')
 }
 
-exports.Deslogar = () => {
-    
+exports.Deslogar = (req, res) => {
+    req.logout();
+    res.redirect('/');
 }
+// route middleware to make sure a user is logged in
+exports.redirecionarUsuario = (req, res, next) => {
 
-module.exports = (app, passport) => {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next()
 
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/mapa', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }))    
-
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/mapa', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }))    
-
-    // =====================================
-    // FACEBOOK ROUTES =====================
-    // =====================================
-    // route for facebook authentication and login
-
-    // route for home page
-    app.get('/', function(req, res) {
-
-        //res.render('pages/home', { login_message: req.flash('loginMessage'), signup_message: req.flash('signupMessage') }); // load the login.ejs file
-
-    });
-
-    app.get('/auth/facebook', passport.authenticate('facebook', {
-        scope: 'email'
-    }));
-
-    // handle the callback after facebook has authenticated the user
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect: '/mapa',
-            failureRedirect: '/'
-        }));
-
-    // route for logging out
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });	
+    // if they aren't redirect them to the home page
+    res.redirect('/mapa');
 }

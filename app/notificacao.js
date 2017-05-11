@@ -68,7 +68,7 @@ exports.AdicionarNotificacaoEmail = (animalModel, usuario, callback) => {
 
 exports.notificar_facebook = (destino, mensagem) => {
 
-  login({ email: "igor.souza96@hotmail.com", password: "igor88021963" }, { pageID: '618248161706129' }, (err, api) => {
+  login({ email: "usuario", password: "senha" }, { pageID: '618248161706129' }, (err, api) => {
     if (err) return console.error(err);
 
     var yourID = destino //"100002787447461";
@@ -83,8 +83,8 @@ module.exports = (app) => {
 		service: 'gmail',
     port: 587,
 		auth: {
-			user: 'nulldreams@gmail.com',
-			pass: '88021963'
+			user: 'usuario',
+			pass: 'senha'
 		}
 	})	
 
